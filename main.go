@@ -8,5 +8,5 @@ import (
 
 func main() {
 	fileLines := utils.ReadFileLines("inputs/day1.txt")
-	fmt.Println(days.ComputeDay1Part1(fileLines))
+	fmt.Println(days.ComputeDay1Part2(fileLines))
 }
