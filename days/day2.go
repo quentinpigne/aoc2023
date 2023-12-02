@@ -24,7 +24,12 @@ func ComputeDay2Part1(fileLines []string) int {
 }
 
 func ComputeDay2Part2(fileLines []string) int {
-	return 0
+	count := 0
+	for _, fileLine := range fileLines {
+		_, gameSets := getGameSetsWithId(fileLine)
+		count += computeCubePower(gameSets)
+	}
+	return count
 }
 
 // Utilities Functions
@@ -62,4 +67,32 @@ func isSetValid(gameSet []string) bool {
 		}
 	}
 	return true
+}
+
+func computeCubePower(gameSets [][]string) int {
+	maxCubes := []int{0, 0, 0}
+	for _, gameSet := range gameSets {
+		for _, cubeSet := range gameSet {
+			cubeColor := strings.Split(cubeSet, " ")[1]
+			cubeCount, _ := strconv.Atoi(strings.Split(cubeSet, " ")[0])
+			switch cubeColor {
+				case "red":
+					if (cubeCount > maxCubes[0]) {
+						maxCubes[0] = cubeCount
+					}
+					break
+				case "green":
+					if (cubeCount > maxCubes[1]) {
+						maxCubes[1] = cubeCount
+					}
+					break
+				case "blue":
+					if (cubeCount > maxCubes[2]) {
+						maxCubes[2] = cubeCount
+					}
+					break
+			}
+		}
+	}
+	return maxCubes[0] * maxCubes[1] * maxCubes[2]
 }
